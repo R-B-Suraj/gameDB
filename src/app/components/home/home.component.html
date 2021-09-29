@@ -1,0 +1,74 @@
+<!-- we want to fiter the game cards... 
+use components from angular material
+
+
+-->
+
+
+<div class="filters">
+    <mat-form-field>
+        <mat-label style="color:white; padding: 4px;">Sort</mat-label>
+        <mat-select
+         panelClass="sort-select"
+         [(ngModel)]="sort"
+         (selectionChange)= "searchGames(sort)">
+<!-- two way binding with sort property in homecomponent.ts file
+we want to get an event whenever our selection changes... so that we can sort it according to the user's wish
+mat-select has default event for it we have to just take action.  selectionChange
+through two way binding the sort variable is alreade hooked
+
+
+-->
+        <mat-option value="name">Name</mat-option>
+         <mat-option value="-released">Released</mat-option>
+         <mat-option value="-added">Added</mat-option>
+         <mat-option value="-created">Created</mat-option>
+         <mat-option value="-updated">Updated</mat-option>
+         <mat-option value="-rating">Rating</mat-option>
+         <mat-option value="metacritic">Metacritic</mat-option>
+         
+        
+        </mat-select>
+    </mat-form-field>
+</div>
+
+
+
+<!--  game wrappers... -->
+<div class="games">
+    <ng-container *ngFor="let game of games">
+
+    <div class="game" (click)="openGameDetails(game.id+'')">
+        <div class="game-thumb-container">
+             <!-- we check if there is a game background image property
+            if not we display paragraph -->
+            <img 
+            *ngIf = "game.background_image"
+            src="{{ game.background_image }}" 
+            alt="thumbnail"
+            class="game-thumbnail"
+            />
+
+            <!-- if not show paragraph -->
+            <p *ngIf="!game.background_image"></p>
+
+        </div>
+        <div class="game-description">
+            <p class="game-name">{{ game.name }}</p>
+            <div class="game-platform">
+                <!-- if there are many platforms for the game -->
+                <img 
+                *ngFor="let gamePlatform of game.parent_platforms"      
+                src="assets/images/{{gamePlatform.platform.name | lowercase}}.svg" 
+                alt="slug" 
+                class="game-platform" />
+                <!-- the slug property is not behaving as string.. why. i used name instead
+                 but check for the logos not shown  name:Apple Macintosh  slug: mac -->
+            </div>
+        </div>
+    </div>
+
+    </ng-container>
+    <!-- each game we assign the data -->
+
+</div>

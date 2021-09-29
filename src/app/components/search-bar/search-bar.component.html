@@ -1,0 +1,22 @@
+<div class="search-container">
+    <form  class="search-form" #form = 'ngForm' (ngSubmit)="onSubmit(form)">
+        <!-- catch the ngSubmit event and pass the form as a parameter to the onSubmit method 
+            inside the search-barcomponent we want to inject angular router as a dependency.. to redirect our applicaiton to our search page
+        
+        -->
+
+        <span class="logo" routerLink="/">gameDB</span>
+
+        <input  
+        class="search-input"
+        name="search"
+        ngModel
+        placeholder="Search 500,000+ games"
+         />
+
+
+         <button class="search-button">Search</button>
+    
+    
+    </form>
+</div>
